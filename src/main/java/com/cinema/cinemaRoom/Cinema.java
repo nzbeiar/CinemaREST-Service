@@ -8,20 +8,29 @@ import java.util.ArrayList;
 
 
 public class Cinema {
+
     private int totalRows;
     private int totalColumns;
-    private ArrayList<Seat> seats;
+    public ArrayList<Seat> availableSeats = new ArrayList<>();
 
 
     public Cinema(int totalRows, int totalColumns) {
         this.totalRows = totalRows;
         this.totalColumns = totalColumns;
-        this.seats = new ArrayList<>();
+        for (int i = 1; i <= totalRows; i++) {
+            for (int j = 1; j <= totalColumns; j++) {
+                if (i <= 4) {
+                    this.availableSeats.add(new Seat(i, j, 10));
+                } else {
+                    this.availableSeats.add(new Seat(i, j, 8));
+                }
+            }
+        }
+
     }
 
-    public Cinema() {
+    public Cinema(){}
 
-    }
     @JsonGetter(value = "total_rows")
     public int getTotalRows() {
         return totalRows;
@@ -42,15 +51,10 @@ public class Cinema {
 
     @JsonGetter(value = "available_seats")
     public ArrayList<Seat> getSeats() {
-        for (int i = 1; i < 9; i++) {
-            for (int j = 1; j < 9; j++) {
-                seats.add(new Seat(i,j));
-            }
-        }
-        return seats;
+        return availableSeats;
     }
 
-    public void setSeats(ArrayList<Seat> seats) {
-        this.seats = seats;
+    public void setSeats(ArrayList<Seat> availableSeats) {
+        this.availableSeats= availableSeats;
     }
 }
