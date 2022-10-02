@@ -1,7 +1,8 @@
-package com.cinema.cinemaRoom;
+package com.cinema.cinemaRoom.cinema;
 
+import com.cinema.cinemaRoom.seat.Seat;
 import com.fasterxml.jackson.annotation.JsonGetter;
-import org.springframework.context.annotation.Bean;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.ArrayList;
 
@@ -11,7 +12,13 @@ public class Cinema {
 
     private int totalRows;
     private int totalColumns;
-    public ArrayList<Seat> availableSeats = new ArrayList<>();
+    ArrayList<Seat> availableSeats = new ArrayList<>();
+
+    private int numberOfSeats;
+
+    private int currentIncome = 0;
+
+    private int numberOfPurchasedTickets = 0;
 
 
     public Cinema(int totalRows, int totalColumns) {
@@ -19,13 +26,10 @@ public class Cinema {
         this.totalColumns = totalColumns;
         for (int i = 1; i <= totalRows; i++) {
             for (int j = 1; j <= totalColumns; j++) {
-                if (i <= 4) {
-                    this.availableSeats.add(new Seat(i, j, 10));
-                } else {
-                    this.availableSeats.add(new Seat(i, j, 8));
-                }
+                this.availableSeats.add(new Seat(i, j));
             }
         }
+        this.numberOfSeats = totalRows * totalColumns;
 
     }
 
@@ -57,4 +61,32 @@ public class Cinema {
     public void setSeats(ArrayList<Seat> availableSeats) {
         this.availableSeats= availableSeats;
     }
+
+    @JsonIgnore
+    public int getCurrentIncome() {
+        return currentIncome;
+    }
+
+    public void setCurrentIncome(int currentIncome) {
+        this.currentIncome = currentIncome;
+    }
+
+    @JsonIgnore
+    public int getNumberOfPurchasedTickets() {
+        return numberOfPurchasedTickets;
+    }
+
+    public void setNumberOfPurchasedTickets(int numberOfPurchasedTickets) {
+        this.numberOfPurchasedTickets = numberOfPurchasedTickets;
+    }
+
+    @JsonIgnore
+    public int getNumberOfSeats() {
+        return numberOfSeats;
+    }
+
+    public void setNumberOfSeats(int numberOfSeats) {
+        this.numberOfSeats = numberOfSeats;
+    }
 }
+

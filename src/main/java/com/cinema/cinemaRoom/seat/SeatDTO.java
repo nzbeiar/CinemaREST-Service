@@ -1,4 +1,4 @@
-package com.cinema.cinemaRoom;
+package com.cinema.cinemaRoom.seat;
 
 public class SeatDTO {
         private int row;
